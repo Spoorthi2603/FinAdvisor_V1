@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container">
+  <div class="hero">
+    <div>
+      <span class="hero-badge">Advisory Platform</span>
+      <h1>Your Complete Credit Card Intelligence Platform</h1>
+      <p>
+        Track every transaction, analyze spending, and optimize EMI outflows with
+        a unified dashboard built for modern personal finance.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="/dashboard">View Dashboard</a>
+        <a class="btn btn-outline" href="/cards">Add Your Cards</a>
+      </div>
+    </div>
+    <div class="mockup-wrap">
+      <div class="mockup-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span style="font-size: 12px; font-weight: 600; color: var(--neutral-900);">Financial Overview</span>
+          <span style="width: 8px; height: 8px; background: var(--primary); border-radius: 50%;"></span>
+        </div>
+        <div style="font-size: 20px; font-weight: 700; color: var(--neutral-900);">₹2,45,000</div>
+        <div style="font-size: 11px; color: var(--neutral-600); margin-bottom: 12px;">Total Credit Limit</div>
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #b45309;">Used: 42%</span>
+          <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #047857;">Available: 58%</span>
+          <span class="badge" style="background: rgba(37, 99, 235, 0.15); color: #1d4ed8;">Cards: 3</span>
+        </div>
+        <div style="height: 6px; border-radius: 6px; background: var(--neutral-100); overflow: hidden; margin-bottom: 12px;">
+          <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #2563eb, #7c3aed);"></div>
+        </div>
+        <div style="font-size: 11px;">
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9;">
+            <span>Swiggy</span>
+            <span style="color: var(--danger);">-₹450</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9;">
+            <span>Amazon</span>
+            <span style="color: var(--danger);">-₹1,299</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+            <span>Salary</span>
+            <span style="color: var(--success);">+₹55,000</span>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-float top-right">
+        <div style="font-size: 10px; color: var(--neutral-600);">CIBIL Score</div>
+        <div style="font-size: 16px; font-weight: 700; color: var(--primary);">748</div>
+        <div style="font-size: 10px; color: var(--success);">▲ +12</div>
+      </div>
+      <div class="mockup-float bottom-left">
+        <div style="font-size: 10px; color: var(--neutral-600);">EMI Due</div>
+        <div style="font-size: 14px; font-weight: 700; color: var(--warning);">₹8,500</div>
+        <div style="font-size: 10px; color: var(--warning);">in 3 days</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-title">Everything you need</div>
+  <div class="grid grid-3">
+    {% for feature in [
+      {"icon": "message-circle", "title": "Smart SMS Parsing", "desc": "Auto-detect transactions from bank alerts."},
+      {"icon": "file-text", "title": "PDF Statement Import", "desc": "Upload and parse bank statements in minutes."},
+      {"icon": "layout-dashboard", "title": "360-degree Dashboard", "desc": "All metrics and KPIs in one place."},
+      {"icon": "credit-card", "title": "EMI Intelligence", "desc": "Track tenure, interest, and monthly outflows."},
+      {"icon": "trending-up", "title": "Credit Score Tips", "desc": "Actionable guidance to improve CIBIL scores."},
+      {"icon": "building-2", "title": "Multi-Bank Support", "desc": "Manage HDFC, SBI, ICICI, and more."}
+    ] %}
+    <div class="feature-card glass-card">
+      <div class="feature-icon">
+        <i data-lucide="{{ feature.icon }}"></i>
+      </div>
+      <h4>{{ feature.title }}</h4>
+      <p>{{ feature.desc }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item"><i data-lucide="layers"></i>Track Multiple Cards</div>
+    <span class="stat-divider"></span>
+    <div class="stat-item"><i data-lucide="shield"></i>Zero Payment Processing</div>
+    <span class="stat-divider"></span>
+    <div class="stat-item"><i data-lucide="lock"></i>DPDP 2023 Compliant</div>
+    <span class="stat-divider"></span>
+    <div class="stat-item"><i data-lucide="sparkles"></i>Bank-Grade Security</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-left" style="margin-bottom: 8px;">
+          <i data-lucide="credit-card"></i>
+          <span>FinAdvisor</span>
+        </div>
+        <p class="footer-link">Advisory-only insights for smarter card decisions.</p>
+      </div>
+      <div>
+        <div class="footer-title">Features</div>
+        <a class="footer-link" href="/dashboard">Smart Analytics</a>
+        <a class="footer-link" href="/history">Transaction History</a>
+        <a class="footer-link" href="/cards">Multi-Card Support</a>
+      </div>
+      <div>
+        <div class="footer-title">Compliance</div>
+        <a class="footer-link" href="#">Privacy Policy</a>
+        <a class="footer-link" href="#">DPDP 2023</a>
+        <a class="footer-link" href="#">Security</a>
+      </div>
+      <div>
+        <div class="footer-title">Support</div>
+        <a class="footer-link" href="mailto:support@finadvisor.app">support@finadvisor.app</a>
+        <a class="footer-link" href="tel:+919876543210">+91 98765 43210</a>
+        <a class="footer-link" href="#">Help Center</a>
+      </div>
+      <div class="footer-social-col">
+        <div class="footer-title">Social</div>
+        <div class="footer-social-row">
+          <a class="footer-link footer-social footer-social-icon" href="#" aria-label="Instagram">
+            <i data-lucide="instagram"></i>
+          </a>
+          <a class="footer-link footer-social footer-social-icon" href="#" aria-label="GitHub">
+            <i data-lucide="github"></i>
+          </a>
+          <a class="footer-link footer-social footer-social-icon" href="#" aria-label="Facebook">
+            <i data-lucide="facebook"></i>
+          </a>
+          <a class="footer-link footer-social footer-social-icon" href="#" aria-label="Twitter">
+            <i data-lucide="twitter"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <span>© 2026 FinAdvisor. All rights reserved.</span>
+      <span>Advisory-only. Not SEBI registered. Not a payment aggregator.</span>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.lucide) lucide.createIcons();
+  });
+</script>
+{% endblock %}
