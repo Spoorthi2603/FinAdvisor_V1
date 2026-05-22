@@ -2,18 +2,15 @@ import secrets
 import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
-from passlib.context import CryptContext
-from passlib.exc import UnknownHashError
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.database import get_db
 from app.models.user import User
 from app.schemas.auth import AuthLogin, AuthRegister, AuthResponse
+from app.utils.security import hash_password, verify_password
 
 router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
-
-pwd_context = CryptContext(schemes=["bcrypt", "argon2"], deprecated="auto")
 
 
 def _generate_customer_id() -> str:
@@ -22,17 +19,6 @@ def _generate_customer_id() -> str:
 
 def _generate_sms_key() -> str:
     return secrets.token_urlsafe(32)
-
-
-def _verify_password(plain_password: str, password_hash: str) -> tuple[bool, str | None]:
-    try:
-        return pwd_context.verify_and_update(plain_password, password_hash)
-    except UnknownHashError:
-        return False, None
-
-
-def _hash_password(password: str) -> str:
-    return pwd_context.hash(password)
 
 
 @router.post("/register", response_model=AuthResponse)
@@ -50,7 +36,7 @@ async def register(payload: AuthRegister, db: AsyncSession = Depends(get_db)) ->
         full_name=payload.full_name,
         email=payload.email,
         phone_number=payload.phone_number,
-        password_hash=_hash_password(payload.password),
+        password_hash=hash_password(payload.password),
         sms_webhook_key=_generate_sms_key(),
         registration_step=2,
     )
@@ -72,7 +58,7 @@ async def login(payload: AuthLogin, db: AsyncSession = Depends(get_db)) -> AuthR
     if not user or not user.password_hash:
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
-    password_verified, replacement_hash = _verify_password(payload.password, user.password_hash)
+    password_verified, replacement_hash = verify_password(payload.password, user.password_hash)
     if not password_verified:
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
